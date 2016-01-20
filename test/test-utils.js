@@ -52,6 +52,14 @@
       assert.textEqual(utils.controllerName('UpperCamel' + config.CONTROLLER_SUFFIX), 'UpperCamel' + config.CONTROLLER_SUFFIX);
       assert.textEqual(utils.controllerName('lowerCamelController'), 'LowerCamel' + config.CONTROLLER_SUFFIX);
       assert.textEqual(utils.controllerName('UpperCamelController'), 'UpperCamel' + config.CONTROLLER_SUFFIX);
+      assert.textEqual(utils.controllerName('lowerCtrl'), 'Lower' + config.CONTROLLER_SUFFIX);
+      assert.textEqual(utils.controllerName('UpperCtrl'), 'Upper' + config.CONTROLLER_SUFFIX);
+      assert.textEqual(utils.controllerName('lowerCamelCtrl'), 'LowerCamel' + config.CONTROLLER_SUFFIX);
+      assert.textEqual(utils.controllerName('UpperCamelCtrl'), 'UpperCamel' + config.CONTROLLER_SUFFIX);
+      assert.textEqual(utils.controllerName('lower' + config.CONTROLLER_SUFFIX), 'Lower' + config.CONTROLLER_SUFFIX);
+      assert.textEqual(utils.controllerName('Upper' + config.CONTROLLER_SUFFIX), 'Upper' + config.CONTROLLER_SUFFIX);
+      assert.textEqual(utils.controllerName('lowerCamel' + config.CONTROLLER_SUFFIX), 'LowerCamel' + config.CONTROLLER_SUFFIX);
+      assert.textEqual(utils.controllerName('UpperCamel' + config.CONTROLLER_SUFFIX), 'UpperCamel' + config.CONTROLLER_SUFFIX);
     });
 
     it('.serviceName()', function () {

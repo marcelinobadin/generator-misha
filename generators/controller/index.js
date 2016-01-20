@@ -19,8 +19,13 @@
       this.argument('feature', {type: String, required: false, defaults: config.DEFAULT_FEATURE});
 
       this.moduleName = utils.checkModule(this.module);
-      this.serviceName = utils.serviceName(this.moduleName);
-      this.configName = utils.configName(this.moduleName);
+      if (this.moduleName.lastIndexOf('.') !== -1) {
+        this.subModuleName = this.moduleName.substr(this.moduleName.lastIndexOf('.') + 1);
+      } else {
+        this.subModuleName = this.moduleName;
+      }
+      this.serviceName = utils.serviceName(this.subModuleName);
+      this.configName = utils.configName(this.subModuleName);
       this.moduleFolder = utils.moduleFolder(this.moduleName + '/' + this.feature);
 
       this.controllerName = utils.controllerName(this.name);

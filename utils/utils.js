@@ -81,15 +81,17 @@
      * @return {String}           angular-friendly controller name
      */
     controllerName: function (userInput) {
-      var suffixLength = config.CONTROLLER_SUFFIX.length;
       // force first character uppercase
       var controllerName = _s.capitalize(userInput);
       // enforce Ctrl name ending
       if (controllerName.substr(-10) === 'Controller') {
         controllerName = controllerName.substr(0, controllerName.length - 10);
       }
-      else if (controllerName.substr(-1 * suffixLength) === config.CONTROLLER_SUFFIX) {
-        controllerName = controllerName.substr(0, controllerName.length - suffixLength);
+      else if (controllerName.substr(-4) === 'Ctrl') {
+        controllerName = controllerName.substr(0, controllerName.length - 4);
+      }
+      else if (controllerName.substr(-config.CONTROLLER_SUFFIX.length) === config.CONTROLLER_SUFFIX) {
+        controllerName = controllerName.substr(0, controllerName.length - config.CONTROLLER_SUFFIX.length);
       }
       controllerName += config.CONTROLLER_SUFFIX;
 

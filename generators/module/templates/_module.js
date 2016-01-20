@@ -25,7 +25,7 @@
   function getStates () {
     return [
       {
-        state: '<%= subModuleName %>',
+        state: '<%= moduleName %>',
         config: {
           url: '/<%= moduleFolder %>',
 <% if (answers.template === 'blank') { -%>
@@ -39,7 +39,7 @@
         }
       },
       {
-        state: '<%= subModuleName %>.list',
+        state: '<%= moduleName %>.list',
         config: {
           url: '/list',
           views: {
@@ -51,7 +51,7 @@
         }
       },
       {
-        state: '<%= subModuleName %>.listDetail',
+        state: '<%= moduleName %>.listDetail',
         config: {
           url: '/list/detail',
           views: {
@@ -63,7 +63,7 @@
         }
       },
       {
-        state: '<%= subModuleName %>.debug',
+        state: '<%= moduleName %>.debug',
         config: {
           url: '/debug',
           views: {
@@ -78,7 +78,7 @@
         }
       },
       {
-        state: '<%= subModuleName %>.list',
+        state: '<%= moduleName %>.list',
         config: {
           url: '/list',
           views: {
@@ -90,7 +90,7 @@
         }
       },
       {
-        state: '<%= subModuleName %>.listDetail',
+        state: '<%= moduleName %>.listDetail',
         config: {
           url: '/list/detail',
           views: {
@@ -102,7 +102,7 @@
         }
       },
       {
-        state: '<%= subModuleName %>.debug',
+        state: '<%= moduleName %>.debug',
         config: {
           url: '/debug',
           views: {
