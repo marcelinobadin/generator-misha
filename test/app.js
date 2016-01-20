@@ -81,6 +81,10 @@
         ]);
       });
 
+      it('updates app.js with the base module', function () {
+        assert.fileContent('app/app.js', ', \'base\'');
+      });
+
       it('creates module of type base', function () {
         // not just any module
         assert.file([
