@@ -1,0 +1,64 @@
+--- src/
+	|-- app/
+		|-- main/
+			|-- assets/
+				|-- img
+			|-- styles/
+				|-- main.scss
+			|--	main.js
+			|-- main.controller.js
+			|-- main.service.js
+			|-- main.directive.js
+			|-- main.filter.js
+			|-- main.html
+			...
+			|-- feature/
+				|-- assets/
+					|-- img
+				|-- styles/
+					|-- feature.scss
+				|--	feature.js
+				|-- feature.controller.js
+				|-- feature.service.js
+				|-- feature.directive.js
+				|-- feature.filter.js
+				|-- feature.html
+		|-- main.js
+		|-- app/module/
+			|-- main/
+				|-- assets/
+					|-- img
+				|-- styles/
+					|-- main.scss
+				|--	main.js
+				|-- main.controller.js
+				|-- main.service.js
+				|-- main.directive.js
+				|-- main.filter.js
+				|-- main.html
+				...
+				|-- feature/
+					|-- assets/
+						|-- img
+					|-- styles/
+						|-- feature.scss
+					|--	feature.js
+					|-- feature.controller.js
+					|-- feature.service.js
+					|-- feature.directive.js
+					|-- feature.filter.js
+					|-- feature.html
+			|-- main.js
+	...
+	|-- module/
+		|-- feature/
+			|-- assets/
+			|-- styles/
+			|--	feature.js
+			|-- feature.controller.js
+			|-- feature.service.js
+			|-- feature.directive.js
+			|-- feature.filter.js
+			|-- feature.html
+		|-- module.js
+	
