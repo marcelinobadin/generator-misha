@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # VARS
-REPOSITORY_NAME='generator-m-ionic-demo'
-REPOSITORY_BASE='https://github.com/mwaylabs/'
+REPOSITORY_NAME='generator-misha-demo'
+REPOSITORY_BASE='https://github.com/marcelinobadin/'
 # TODO: set BUILD variable
 BUILD=0
 
