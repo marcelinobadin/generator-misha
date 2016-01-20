@@ -71,7 +71,7 @@
           [filePath, 'service(\'Some\', Some)'],
           [filePath, 'function Some ($log, $timeout) {'],
           [filePath, 'this.someData = {'],
-          [filePath, 'this.changeBriefly = changeBriefly()']
+          [filePath, 'this.changeBriefly = function () {']
         ]);
       });
 
