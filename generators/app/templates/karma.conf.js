@@ -33,7 +33,7 @@
         // test
         'test/karma/**/*.js',
         // templates
-        'app/**/templates/*.html'
+        'app/**/*.html'
       ]),
 
       // list of files to exclude
@@ -42,7 +42,7 @@
       // preprocess matching files before serving them to the browser
       // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
       preprocessors: {
-        'app/**/templates/*.html': ['ng-html2js']
+        'app/**/*.html': ['ng-html2js']
       },
 
       // use template cache to avoid unexpected $http requests from ui-router
