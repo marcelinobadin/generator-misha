@@ -12,15 +12,27 @@
     var basicFilesTests = function (moduleName, options) {
       var moduleFolder = utils.moduleFolder(moduleName);
       var modulePath = 'app/' + moduleFolder;
+      var subModuleFolder, subModuleName;
+      if (moduleFolder.lastIndexOf('/') !== -1) {
+        subModuleFolder = moduleFolder.substr(moduleFolder.lastIndexOf('/') + 1);
+      } else {
+        subModuleFolder = moduleFolder;
+      }
+      if (moduleName.lastIndexOf('.') !== -1) {
+        subModuleName = moduleName.substr(moduleName.lastIndexOf('.') + 1);
+      } else {
+        subModuleName = moduleName;
+      }
+
 
       it('basic files and folders', function () {
         assert.file([
-          modulePath + '/' + moduleFolder + '.js',
+          modulePath + '/' + subModuleFolder + '.js',
           modulePath + '/main/styles/main.scss'
         ]);
 
         // module.js
-        var moduleFile = modulePath + '/' + moduleFolder + '.js';
+        var moduleFile = modulePath + '/' + subModuleFolder + '.js';
         assert.fileContent(moduleFile, 'state: \'' + moduleName + '\'');
         assert.fileContent(moduleFile, 'url: \'/' + moduleFolder + '\'');
 
@@ -32,8 +44,8 @@
           configName = utils.configName();
         }
         else {
-          configPath += '/' + moduleFolder + '-config.constant.js';
-          configName = utils.configName(moduleName);
+          configPath += '/' + subModuleFolder + '-config.constant.js';
+          configName = utils.configName(subModuleName);
         }
         assert.fileContent(configPath, '.constant(\'' + configName + '\'');
         assert.fileContent(configPath, 'ENV: {');
@@ -53,9 +65,15 @@
 
     var ionicCssTests = function (moduleName) {
       var moduleFolder = utils.moduleFolder(moduleName);
+      var subModuleFolder;
+      if (moduleFolder.lastIndexOf('/') !== -1) {
+        subModuleFolder = moduleFolder.substr(moduleFolder.lastIndexOf('/') + 1);
+      } else {
+        subModuleFolder = moduleFolder;
+      }
 
       it('ionicCss', function () {
-        assert.noFile('app/' + moduleFolder + '/main/styles/' + moduleFolder + '.scss');
+        assert.noFile('app/' + moduleFolder + '/main/styles/' + subModuleFolder + '.scss');
       });
     };
 
@@ -83,15 +101,26 @@
     var tabsTests = function (moduleName, options) {
       var moduleFolder = utils.moduleFolder(moduleName);
       var modulePath = 'app/' + moduleFolder;
+      var subModuleFolder, subModuleName;
+      if (moduleFolder.lastIndexOf('/') !== -1) {
+        subModuleFolder = moduleFolder.substr(moduleFolder.lastIndexOf('/') + 1);
+      } else {
+        subModuleFolder = moduleFolder;
+      }
+      if (moduleName.lastIndexOf('.') !== -1) {
+        subModuleName = moduleName.substr(moduleName.lastIndexOf('.') + 1);
+      } else {
+        subModuleName = moduleName;
+      }
 
       it('tabs tests', function () {
         assert.file([
           modulePath + '/main/assets/images/yo@2x.png'
         ]);
 
-        var moduleFile = modulePath + '/' + moduleFolder + '.js';
-        var serviceFile = modulePath + '/main/' + moduleFolder + '.service.js';
-        var serviceName = utils.serviceName(moduleName);
+        var moduleFile = modulePath + '/' + subModuleFolder + '.js';
+        var serviceFile = modulePath + '/main/' + subModuleFolder + '.service.js';
+        var serviceName = utils.serviceName(subModuleName);
         var debugCtrlFile, debugCtrlName;
         var debugSpecFile;
         var configName;
@@ -108,10 +137,10 @@
         }
         // no mainModule test
         else {
-          debugCtrlFile = modulePath + '/main/' + moduleFolder + '-debug.controller.js';
-          debugCtrlName = utils.controllerName(moduleName + 'Debug');
+          debugCtrlFile = modulePath + '/main/' + subModuleFolder + '-debug.controller.js';
+          debugCtrlName = utils.controllerName(subModuleName + 'Debug');
           debugSpecFile = 'test/protractor/' + moduleFolder + '-debug.spec.js';
-          configName = utils.configName(moduleName);
+          configName = utils.configName(subModuleName);
 
           // module.js
           assert.noFileContent(moduleFile, 'otherwisePath = \'/');
@@ -225,18 +254,49 @@
       tabsTests('myModule');
     });
 
+    describe('myModule.subModule (no main, tabs)', function () {
+
+      before(function (done) {
+        helpers.run(path.join(__dirname, '../generators/module'))
+          .withGenerators([ // configure path to  subgenerators
+            path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/template'),
+            path.join(__dirname, '../generators/service'),
+            path.join(__dirname, '../generators/constant')
+          ])
+          .withArguments('myModule.subModule')
+          .withPrompts({ template: 'tabs' })
+          .on('end', done);
+      });
+
+      basicFilesTests('myModule.subModule');
+      noMainModuleTests('myModule.subModule');
+      tabsTests('myModule.subModule');
+    });
+
     var sideMenuTests = function (moduleName, options) {
       var moduleFolder = utils.moduleFolder(moduleName);
       var modulePath = 'app/' + moduleFolder;
+      var subModuleFolder, subModuleName;
+      if (moduleFolder.lastIndexOf('/') !== -1) {
+        subModuleFolder = moduleFolder.substr(moduleFolder.lastIndexOf('/') + 1);
+      } else {
+        subModuleFolder = moduleFolder;
+      }
+      if (moduleName.lastIndexOf('.') !== -1) {
+        subModuleName = moduleName.substr(moduleName.lastIndexOf('.') + 1);
+      } else {
+        subModuleName = moduleName;
+      }
 
       it('sideMenu tests', function () {
         assert.file([
-          modulePath + '/main/assets/images/yo@2x.png',
+          modulePath + '/main/assets/images/yo@2x.png'
         ]);
 
-        var moduleFile = modulePath + '/' + moduleFolder + '.js';
-        var serviceFile = modulePath + '/main/' + moduleFolder + '.service.js';
-        var serviceName = utils.serviceName(moduleName);
+        var moduleFile = modulePath + '/' + subModuleFolder + '.js';
+        var serviceFile = modulePath + '/main/' + subModuleFolder + '.service.js';
+        var serviceName = utils.serviceName(subModuleName);
         var debugCtrlFile, debugCtrlName;
         var menuCtrlFile, menuCtrlName;
         var configName;
@@ -254,11 +314,11 @@
         }
         // no mainModule test
         else {
-          menuCtrlFile = modulePath + '/main/' + moduleFolder + '-menu.controller.js';
-          menuCtrlName = utils.controllerName(moduleName + 'Menu');
-          debugCtrlFile = modulePath + '/main/' + moduleFolder + '-debug.controller.js';
-          debugCtrlName = utils.controllerName(moduleName + 'Debug');
-          configName = utils.configName(moduleName);
+          menuCtrlFile = modulePath + '/main/' + subModuleFolder + '-menu.controller.js';
+          menuCtrlName = utils.controllerName(subModuleName + 'Menu');
+          debugCtrlFile = modulePath + '/main/' + subModuleFolder + '-debug.controller.js';
+          debugCtrlName = utils.controllerName(subModuleName + 'Debug');
+          configName = utils.configName(subModuleName);
 
           // module.js
           assert.noFileContent(moduleFile, 'otherwisePath = \'/');
@@ -346,9 +406,40 @@
       sideMenuTests('myModule');
     });
 
+    describe('myModule.subModule (no main, sidemenu)', function () {
+
+      before(function (done) {
+        helpers.run(path.join(__dirname, '../generators/module'))
+          .withGenerators([ // configure path to  subgenerators
+            path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/template'),
+            path.join(__dirname, '../generators/service'),
+            path.join(__dirname, '../generators/constant')
+          ])
+          .withArguments('myModule.subModule')
+          .withPrompts({ template: 'sidemenu' })
+          .on('end', done);
+      });
+
+      basicFilesTests('myModule.subModule');
+      noMainModuleTests('myModule.subModule');
+      sideMenuTests('myModule.subModule');
+    });
+
     var blankTests = function (moduleName) {
       var moduleFolder = utils.moduleFolder(moduleName);
       var modulePath = 'app/' + moduleFolder;
+      var subModuleFolder, subModuleName;
+      if (moduleFolder.lastIndexOf('/') !== -1) {
+        subModuleFolder = moduleFolder.substr(moduleFolder.lastIndexOf('/') + 1);
+      } else {
+        subModuleFolder = moduleFolder;
+      }
+      if (moduleName.lastIndexOf('.') !== -1) {
+        subModuleName = moduleName.substr(moduleName.lastIndexOf('.') + 1);
+      } else {
+        subModuleName = moduleName;
+      }
 
       it('blank tests', function () {
         assert.noFile([
@@ -356,8 +447,8 @@
         ]);
 
         // module.js
-        var moduleFile = modulePath + '/' + moduleFolder + '.js';
-        assert.fileContent(moduleFile, 'view-title="' + moduleName + '">');
+        var moduleFile = modulePath + '/' + subModuleFolder + '.js';
+        assert.fileContent(moduleFile, 'view-title="' + subModuleName + '">');
         assert.fileContent(moduleFile, moduleFolder + '/main');
       });
     };
@@ -403,6 +494,25 @@
       basicFilesTests('myModule');
       noMainModuleTests('myModule');
       blankTests('myModule');
+    });
+
+    describe('myModule.subModule (no main, blank)', function () {
+      before(function (done) {
+        helpers.run(path.join(__dirname, '../generators/module'))
+          .withGenerators([ // configure path to subgenerators
+            path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/template'),
+            path.join(__dirname, '../generators/service'),
+            path.join(__dirname, '../generators/constant')
+          ])
+          .withPrompts({ template: 'blank' })
+          .withArguments('myModule.subModule')
+          .on('end', done);
+      });
+
+      basicFilesTests('myModule.subModule');
+      noMainModuleTests('myModule.subModule');
+      blankTests('myModule.subModule');
     });
 
   });

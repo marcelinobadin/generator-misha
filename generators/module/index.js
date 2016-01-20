@@ -73,6 +73,12 @@
       // basic files
       var modulePath = 'app/' + this.moduleFolder;
       var moduleDefaultFeaturePath = modulePath + '/' + config.DEFAULT_FEATURE;
+      var subModuleFolder;
+      if (this.moduleFolder.lastIndexOf('/') !== -1) {
+        subModuleFolder = this.moduleFolder.substr(this.moduleFolder.lastIndexOf('/') + 1);
+      } else {
+        subModuleFolder = this.moduleFolder;
+      }
       mkdirp.sync(modulePath);
 
       // basic templated files
@@ -84,7 +90,7 @@
         this.menuCtrlName = utils.controllerName(this.subModuleName + 'Menu');
         this.debugCtrlName = utils.controllerName(this.subModuleName + 'Debug');
       }
-      this.template('_module.js', modulePath + '/' + this.moduleFolder + '.js');
+      this.template('_module.js', modulePath + '/' + subModuleFolder + '.js');
       this.template('_module.scss', moduleDefaultFeaturePath + '/styles/' + config.DEFAULT_FEATURE + '.scss');
       // create config constant
       this.composeWith('misha:constant', {
