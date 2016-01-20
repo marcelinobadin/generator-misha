@@ -23,7 +23,7 @@
   });
 
   gulp.task('clean', function () {
-    return gulp.src(['.tmp', paths.dist + '/*'])
+    return gulp.src(['.tmp', paths.dist + '/*', 'app/assets'])
       .pipe(vinylPaths(del));
   });
 
@@ -64,7 +64,7 @@
 
 // copy assets, wait for fonts
   gulp.task('build-assets', ['clean', 'bower-fonts'], function () {
-    return gulp.src('app/*/assets/**/*')
+    return gulp.src(['app/**/assets/**/*', '!app/**/styles/**/*'])
       .pipe($.if(options.minify, $.imagemin()))
       .pipe(gulp.dest(paths.dist));
   });

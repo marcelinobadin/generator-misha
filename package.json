@@ -39,9 +39,10 @@
     "protractor",
     "karma",
     "generator",
-    "generator-m",
+    "generator-misha",
     "generator-ionic",
     "generator-m-ionic",
+    "generator-hottowel",
     "yeoman-generator",
     "yo",
     "yeoman"
