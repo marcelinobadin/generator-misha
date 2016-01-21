@@ -81,10 +81,6 @@
         ]);
       });
 
-      it('updates app.js with the base module', function () {
-        assert.fileContent('app/app.js', ', \'base\'');
-      });
-
       it('creates module of type base', function () {
         // not just any module
         assert.file([
@@ -121,9 +117,7 @@
           // proper css path
           ['app/index.html', '<body ng-app="' + answers.appModule + '">'],
           // inject appModule into app.js module
-          ['app/app.js', '.module(\'' + answers.appModule + '\','],
-          // inject appModule.main into app.js module
-          ['app/app.js', '\'base\'']
+          ['app/app.js', '.module(\'' + answers.appModule + '\',']
         ]);
       });
 

@@ -13,6 +13,7 @@
     "gulp": "^3.9.0",
     "gulp-angular-filesort": "^1.1.1",
     "gulp-autoprefixer": "^3.0.1",
+    "gulp-change": "^1.0.0",
     "gulp-changed": "^1.3.0",
     "gulp-csso": "^1.0.0",
     "gulp-eslint": "^1.0.0",

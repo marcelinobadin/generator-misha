@@ -19,3 +19,11 @@ Every module you create has at least one main feature (<mouduleName>/main) where
 
 You can create new features using the subgenerator ```yo misha:route <feature> [<module>]``` which will create a new directory for your feature with a standard template and controller. The module parameter is optional, and defaults to
 _base_ module.
+
+# Using Ionic.io
+
+Remember ```ionic add``` is similar to ```bower install --save-dev```. Particularly I prefer to use ```bower install --save```.
+
+To add the ionic web client run ```bower install --save ionic-platform-web-client``` and then add the plugins from __Ionic.io__ that you want.
+
+Remember to comment the _cordova.js_ load in _index.html_ and instead of running ```ionic io init``` run ```gulp ionic-io-init```.
