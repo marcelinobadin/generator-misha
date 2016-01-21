@@ -156,14 +156,6 @@
           options: { template: 'tabs' }
         });
       }
-
-      // Adds the created module into main module file (app.js)
-      var appPath = 'app/app.js';
-      if (this.fs.exists(appPath)) {
-        var fileStr = this.fs.read(appPath);
-        fileStr = fileStr.replace(/\/\/\#new\-modules/g, ', \'' + this.moduleName + '\'\n      \/\/#new-modules');
-        this.fs.write(appPath, fileStr);
-      }
     }
   });
 })();
