@@ -20,7 +20,9 @@
       assert.file([
         'app/base/name/name.controller.js',
         'test/karma/base/name/name.controller.spec.js',
-        'app/base/name/name.html'
+        'app/base/name/name.html',
+        'app/base/name/assets',
+        'app/base/name/styles'
       ]);
     });
   });
