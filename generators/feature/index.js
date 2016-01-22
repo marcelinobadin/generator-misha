@@ -6,7 +6,7 @@
   module.exports = yeoman.Base.extend({
 
     initializing: function () {
-      this.log('You called the misha:route subgenerator.');
+      this.log('You called the misha:feature subgenerator.');
 
       // arguments
       this.argument('name', {
@@ -21,10 +21,10 @@
 
     writing: function () {
       this.composeWith('misha:controller', {
-        arguments: this.name + ' ' + this.moduleName,
+        arguments: this.name + ' ' + this.moduleName + ' ' + this.name
       });
       this.composeWith('misha:template', {
-        arguments: this.name + ' ' + this.moduleName,
+        arguments: this.name + ' ' + this.moduleName + ' ' + this.name
       });
     }
   });
