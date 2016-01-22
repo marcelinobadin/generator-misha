@@ -2,6 +2,7 @@
   'use strict';
   var yeoman = require('yeoman-generator');
   var utils = require('../../utils/utils.js');
+  var mkdirp = require('mkdirp');
 
   module.exports = yeoman.Base.extend({
 
@@ -17,15 +18,20 @@
       this.argument('module', { type: String, required: false });
 
       this.moduleName = utils.checkModule(this.module);
+      this.moduleFolder = utils.moduleFolder(this.moduleName);
+      this.featureFileName = utils.fileName(this.name);
     },
 
     writing: function () {
+      var featurePath = 'app/' + this.moduleFolder + '/' + this.featureFileName;
       this.composeWith('misha:controller', {
         arguments: this.name + ' ' + this.moduleName + ' ' + this.name
       });
       this.composeWith('misha:template', {
         arguments: this.name + ' ' + this.moduleName + ' ' + this.name
       });
+      mkdirp.sync(featurePath + '/assets');
+      mkdirp.sync(featurePath + '/styles');
     }
   });
 })();
