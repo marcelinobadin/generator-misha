@@ -34,7 +34,7 @@
         // module.js
         var moduleFile = modulePath + '/' + subModuleFolder + '.js';
         assert.fileContent(moduleFile, 'state: \'' + moduleName + '\'');
-        assert.fileContent(moduleFile, 'url: \'/' + moduleFolder + '\'');
+        assert.fileContent(moduleFile, 'url: \'/' + subModuleFolder + '\'');
 
         // config
         var configPath = modulePath;
@@ -95,6 +95,14 @@
           modulePath + '/env-prod.json'
         ]);
         assert.noFileContent(modulePath + '/main/styles/main.scss', '$light');
+
+        assert.file([
+          modulePath + '/main/main.controller.js',
+          modulePath + '/main/main.html'
+        ]);
+
+        // main/main.js
+        assert.fileContent(modulePath + '/main/main.js', 'url: \'/main\'');
       });
     };
 
@@ -157,7 +165,8 @@
           [moduleFile, 'templateUrl: \'' + moduleFolder + '/main/list-detail.html'],
           [moduleFile, 'state: \'' + moduleName + '.debug'],
           [moduleFile, 'templateUrl: \'' + moduleFolder + '/main/debug.html'],
-          [moduleFile, 'controller: \'' + debugCtrlName + ' as ctrl'],
+          [moduleFile, 'controller: \'' + debugCtrlName],
+          [moduleFile, 'controllerAs: \'ctrl\''],
 
           // template files
           [debugCtrlFile, 'controller(\'' + debugCtrlName],
@@ -165,7 +174,7 @@
           [debugCtrlFile, 'this.someData = ' + serviceName],
           [debugCtrlFile, 'this.ENV = ' + configName],
           [debugCtrlFile, 'this.BUILD = ' + configName],
-          [serviceFile, 'service(\'' + serviceName],
+          [serviceFile, 'service(\'' + serviceName]
         ]);
 
         // templates
@@ -176,7 +185,7 @@
           [modulePath + '/main/list.html', moduleName + '.listDetail'],
           [modulePath + '/main/tabs.html', '<ion-tabs'],
           [modulePath + '/main/tabs.html', moduleName + '.list'],
-          [modulePath + '/main/tabs.html', moduleName + '.debug'],
+          [modulePath + '/main/tabs.html', moduleName + '.debug']
         ]);
 
         // tests
@@ -196,6 +205,7 @@
         helpers.run(path.join(__dirname, '../generators/module'))
           .withGenerators([ // configure path to  subgenerators
             path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/template'),
             path.join(__dirname, '../generators/service'),
             path.join(__dirname, '../generators/constant')
@@ -221,6 +231,7 @@
         helpers.run(path.join(__dirname, '../generators/module'))
           .withGenerators([ // configure path to  subgenerators
             path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/template'),
             path.join(__dirname, '../generators/service'),
             path.join(__dirname, '../generators/constant')
@@ -240,6 +251,7 @@
         helpers.run(path.join(__dirname, '../generators/module'))
           .withGenerators([ // configure path to  subgenerators
             path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/template'),
             path.join(__dirname, '../generators/service'),
             path.join(__dirname, '../generators/constant')
@@ -260,6 +272,7 @@
         helpers.run(path.join(__dirname, '../generators/module'))
           .withGenerators([ // configure path to  subgenerators
             path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/template'),
             path.join(__dirname, '../generators/service'),
             path.join(__dirname, '../generators/constant')
@@ -329,14 +342,16 @@
           // module.js
           [moduleFile, 'abstract: true'],
           [moduleFile, 'templateUrl: \'' + moduleFolder + '/main/menu.html'],
-          [moduleFile, 'controller: \'' + menuCtrlName + ' as menu\''],
+          [moduleFile, 'controller: \'' + menuCtrlName],
+          [moduleFile, 'controllerAs: \'menu\''],
           [moduleFile, 'state: \'' + moduleName + '.list'],
           [moduleFile, 'templateUrl: \'' + moduleFolder + '/main/list.html'],
           [moduleFile, 'state: \'' + moduleName + '.listDetail'],
           [moduleFile, 'templateUrl: \'' + moduleFolder + '/main/list-detail.html'],
           [moduleFile, 'state: \'' + moduleName + '.debug'],
           [moduleFile, 'templateUrl: \'' + moduleFolder + '/main/debug.html'],
-          [moduleFile, 'controller: \'' + debugCtrlName + ' as ctrl'],
+          [moduleFile, 'controller: \'' + debugCtrlName],
+          [moduleFile, 'controllerAs: \'ctrl\''],
 
           // template files
           [debugCtrlFile, 'controller(\'' + debugCtrlName],
@@ -345,7 +360,7 @@
           [debugCtrlFile, 'this.ENV = ' + configName],
           [debugCtrlFile, 'this.BUILD = ' + configName],
           [serviceFile, 'service(\'' + serviceName],
-          [menuCtrlFile, 'controller(\'' + menuCtrlName],
+          [menuCtrlFile, 'controller(\'' + menuCtrlName]
         ]);
 
         // templates
@@ -371,6 +386,7 @@
         helpers.run(path.join(__dirname, '../generators/module'))
           .withGenerators([ // configure path to  subgenerators
             path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/template'),
             path.join(__dirname, '../generators/service'),
             path.join(__dirname, '../generators/constant')
@@ -392,6 +408,7 @@
         helpers.run(path.join(__dirname, '../generators/module'))
           .withGenerators([ // configure path to  subgenerators
             path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/template'),
             path.join(__dirname, '../generators/service'),
             path.join(__dirname, '../generators/constant')
@@ -412,6 +429,7 @@
         helpers.run(path.join(__dirname, '../generators/module'))
           .withGenerators([ // configure path to  subgenerators
             path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/template'),
             path.join(__dirname, '../generators/service'),
             path.join(__dirname, '../generators/constant')
@@ -429,27 +447,22 @@
     var blankTests = function (moduleName) {
       var moduleFolder = utils.moduleFolder(moduleName);
       var modulePath = 'app/' + moduleFolder;
-      var subModuleFolder, subModuleName;
+      var subModuleFolder;
       if (moduleFolder.lastIndexOf('/') !== -1) {
         subModuleFolder = moduleFolder.substr(moduleFolder.lastIndexOf('/') + 1);
       } else {
         subModuleFolder = moduleFolder;
       }
-      if (moduleName.lastIndexOf('.') !== -1) {
-        subModuleName = moduleName.substr(moduleName.lastIndexOf('.') + 1);
-      } else {
-        subModuleName = moduleName;
-      }
 
       it('blank tests', function () {
         assert.noFile([
-          modulePath + '/main/assets/images/yo@2x.png',
+          modulePath + '/main/assets/images/yo@2x.png'
         ]);
 
         // module.js
         var moduleFile = modulePath + '/' + subModuleFolder + '.js';
-        assert.fileContent(moduleFile, 'view-title="' + subModuleName + '">');
-        assert.fileContent(moduleFile, moduleFolder + '/main');
+        assert.fileContent(moduleFile, '\'blocks.router\'');
+        assert.fileContent(moduleFile, '/' + subModuleFolder);
       });
     };
 
@@ -462,6 +475,7 @@
         helpers.run(path.join(__dirname, '../generators/module'))
           .withGenerators([ // configure path to subgenerators
             path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/template'),
             path.join(__dirname, '../generators/service'),
             path.join(__dirname, '../generators/constant')
@@ -482,6 +496,7 @@
         helpers.run(path.join(__dirname, '../generators/module'))
           .withGenerators([ // configure path to subgenerators
             path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/template'),
             path.join(__dirname, '../generators/service'),
             path.join(__dirname, '../generators/constant')
@@ -501,6 +516,7 @@
         helpers.run(path.join(__dirname, '../generators/module'))
           .withGenerators([ // configure path to subgenerators
             path.join(__dirname, '../generators/controller'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/template'),
             path.join(__dirname, '../generators/service'),
             path.join(__dirname, '../generators/constant')

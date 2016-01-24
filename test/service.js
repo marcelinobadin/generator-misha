@@ -20,7 +20,7 @@
         assert.fileContent([
           [filePath, '.module(\'' + config.DEFAULT_MODULE + '\')'],
           [filePath, 'service(\'Some\', Some)'],
-          [filePath, 'function Some ($log) {']
+          [filePath, 'function Some (logger) {']
         ]);
       });
 
@@ -45,7 +45,7 @@
         assert.fileContent([
           [filePath, '.module(\'myModule\')'],
           [filePath, 'service(\'Some\', Some)'],
-          [filePath, 'function Some ($log) {']
+          [filePath, 'function Some (logger) {']
         ]);
       });
 
@@ -69,7 +69,7 @@
         var filePath = 'app/base/main/some.service.js';
         assert.fileContent([
           [filePath, 'service(\'Some\', Some)'],
-          [filePath, 'function Some ($log, $timeout) {'],
+          [filePath, 'function Some (logger, $timeout) {'],
           [filePath, 'this.someData = {'],
           [filePath, 'this.changeBriefly = function () {']
         ]);

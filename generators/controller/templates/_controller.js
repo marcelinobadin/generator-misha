@@ -5,10 +5,10 @@
     .module('<%= moduleName %>')
     .controller('<%= controllerName %>', <%= controllerName %>);
 
-  <%= controllerName %>.$inject = ['$log'<% if(options.template === 'debug') { %>, '<%= serviceName %>', '<%= configName %>', '$cordovaDevice'<% } %>];
+  <%= controllerName %>.$inject = ['logger'<% if(options.template === 'debug') { %>, '<%= serviceName %>', '<%= configName %>', '$cordovaDevice'<% } %>];
   /* @ngInject */
-  function <%= controllerName %> ($log<% if(options.template === 'debug') { %>, <%= serviceName %>, <%= configName %>, $cordovaDevice<% } %>) {
-    $log.log('Hello from your Controller: <%= controllerName %> in module <%= moduleName%>:. This is your controller:', this);
+  function <%= controllerName %> (logger<% if(options.template === 'debug') { %>, <%= serviceName %>, <%= configName %>, $cordovaDevice<% } %>) {
+    logger.log('Hello from your Controller: <%= controllerName %> in module <%= moduleName%>:. This is your controller:', this);
 <% if (options.template === 'debug') {-%>
     // bind data from services
     this.someData = <%= serviceName %>.someData;

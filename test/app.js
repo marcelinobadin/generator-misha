@@ -19,6 +19,7 @@
         helpers.run(path.join(__dirname, '../generators/app'))
           .withGenerators([ // configure path to subgenerators
             path.join(__dirname, '../generators/module'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/constant'),
             path.join(__dirname, '../generators/controller'),
             path.join(__dirname, '../generators/template'),
@@ -51,6 +52,7 @@
           'gulp/linting.js',
           'gulp/testing.js',
           'gulp/watching.js',
+          'gulp/ionic-io-init.js',
           'gulpfile.js',
           'jenkins.sh',
           'karma.conf.js',
@@ -86,6 +88,10 @@
         assert.file([
           'app/base/env-dev.json',
         ]);
+      });
+
+      it('updates app.js to use the base module', function () {
+        assert.fileContent('app/app.js', '\'base\',');
       });
 
       it('version injected in README.md', function () {
@@ -136,6 +142,7 @@
         helpers.run(path.join(__dirname, '../generators/app'))
           .withGenerators([ // configure path to subgenerators
             path.join(__dirname, '../generators/module'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/constant'),
             path.join(__dirname, '../generators/controller'),
             path.join(__dirname, '../generators/template'),
@@ -160,6 +167,7 @@
         helpers.run(path.join(__dirname, '../generators/app'))
           .withGenerators([ // configure path to subgenerators
             path.join(__dirname, '../generators/module'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/constant'),
             path.join(__dirname, '../generators/controller'),
             path.join(__dirname, '../generators/template'),
@@ -184,6 +192,7 @@
         helpers.run(path.join(__dirname, '../generators/app'))
           .withGenerators([ // configure path to subgenerators
             path.join(__dirname, '../generators/module'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/constant'),
             path.join(__dirname, '../generators/controller'),
             path.join(__dirname, '../generators/template'),
@@ -207,6 +216,7 @@
         helpers.run(path.join(__dirname, '../generators/app'))
           .withGenerators([ // configure path to  subgenerators
             path.join(__dirname, '../generators/module'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/constant'),
             path.join(__dirname, '../generators/controller'),
             path.join(__dirname, '../generators/template'),
@@ -250,6 +260,7 @@
           .withOptions({ 'skip-install': true, 'skip-sdk': true, 'skip-prompts': true}) // execute with options
           .withGenerators([ // configure path to  subgenerators
             path.join(__dirname, '../generators/module'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/constant'),
             path.join(__dirname, '../generators/controller'),
             path.join(__dirname, '../generators/template'),
@@ -270,6 +281,7 @@
           .withOptions({ 'skip-install': true, 'skip-sdk': true, 'skip-prompts': true, 'ios-only': true}) // execute with options
           .withGenerators([ // configure path to  subgenerators
             path.join(__dirname, '../generators/module'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/constant'),
             path.join(__dirname, '../generators/controller'),
             path.join(__dirname, '../generators/template'),
@@ -290,6 +302,7 @@
           .withOptions({ 'skip-install': true, 'skip-sdk': true, 'skip-prompts': true, 'cordova': false}) // execute with options
           .withGenerators([ // configure path to  subgenerators
             path.join(__dirname, '../generators/module'),
+            path.join(__dirname, '../generators/feature'),
             path.join(__dirname, '../generators/constant'),
             path.join(__dirname, '../generators/controller'),
             path.join(__dirname, '../generators/template'),

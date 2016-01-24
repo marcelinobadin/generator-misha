@@ -5,11 +5,11 @@
     .module('<%= moduleName %>')
     .service('<%= serviceName %>', <%= serviceName %>);
 
-  <%= serviceName %>.$inject = ['$log'<% if (options.template === 'debug') { %>, '$timeout'<% } %>];
+  <%= serviceName %>.$inject = ['logger'<% if (options.template === 'debug') { %>, '$timeout'<% } %>];
   /* @ngInject */
-  function <%= serviceName %> ($log<% if (options.template === 'debug') { %>, $timeout<% } %>) {
+  function <%= serviceName %> (logger<% if (options.template === 'debug') { %>, $timeout<% } %>) {
 
-    $log.log('Hello from your Service: <%= serviceName %> in module <%= moduleName %>');
+    logger.log('Hello from your Service: <%= serviceName %> in module <%= moduleName %>');
 
 <% if(options.template === 'debug') { -%>
     // some initial data
