@@ -20,7 +20,7 @@
         assert.fileContent([
           [filePath, '.module(\'' + config.DEFAULT_MODULE + '\')'],
           [filePath, 'controller(\'Some' + config.CONTROLLER_SUFFIX + '\', Some' + config.CONTROLLER_SUFFIX + ')'],
-          [filePath, 'function Some' + config.CONTROLLER_SUFFIX + ' ($log) {']
+          [filePath, 'function Some' + config.CONTROLLER_SUFFIX + ' (logger) {']
         ]);
       });
 
@@ -66,7 +66,7 @@
       it('file, controller signature, debug logic & placeholders', function () {
         var filePath = 'app/' + config.DEFAULT_MODULE + '/main/some.controller.js';
         assert.fileContent([
-          [filePath, '$log, Base, Config, $cordovaDevice) {'],
+          [filePath, 'logger, Base, Config, $cordovaDevice) {'],
           [filePath, 'this.someData = Base.'],
           [filePath, 'this.ENV = Config.ENV'],
           [filePath, 'this.BUILD = Config.BUILD']
@@ -92,7 +92,7 @@
       it('file, controller signature, debug logic & placeholders', function () {
         var filePath = 'app/my-module/main/some.controller.js';
         assert.fileContent([
-          [filePath, '$log, MyModule, MyModuleConfig'],
+          [filePath, 'logger, MyModule, MyModuleConfig'],
           [filePath, 'this.someData = MyModule.'],
           [filePath, 'this.ENV = MyModuleConfig.ENV'],
           [filePath, 'this.BUILD = MyModuleConfig.BUILD'],

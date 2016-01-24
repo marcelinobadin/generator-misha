@@ -5,42 +5,54 @@
     .module('<%= moduleName %>', [
       'ionic',
       'ngCordova',
-      'ui.router'
-      // TODO: load other modules selected during generation
+      'ui.router', // #new-module --- Add new selected modules during generation -- Do not edit or remove this line. (TODO)
+      'blocks.router',
+      'blocks.logger',
+      'blocks.exception'
     ])
     .run(<%= subModuleName %>Run);
 
-  var otherwisePath = '';
 <% if (options.mainModule && answers.template === 'blank') { -%>
-  otherwisePath = '/<%= moduleFolder %>';
+  var otherwisePath = '/<%= moduleFolder %>/main';
 <%} else if (options.mainModule) { -%>
-  otherwisePath = '/<%= moduleFolder %>/list';
+  var otherwisePath = '/<%= moduleFolder %>/list';
 <%} -%>
 
   <%= subModuleName %>Run.$inject = ['routerHelper'];
   /* @ngInject */
   function <%= subModuleName %>Run (routerHelper) {
+<% if (options.mainModule) { -%>
     routerHelper.configureStates(getStates(), otherwisePath);
+<%} else { -%>
+    routerHelper.configureStates(getStates());
+<%} -%>
   }
   function getStates () {
     return [
       {
         state: '<%= moduleName %>',
         config: {
-          url: '/<%= moduleFolder %>',
-<% if (answers.template === 'blank') { -%>
-          template: '<ion-view view-title="<%= subModuleName %>"></ion-view>',
-          // templateUrl: '<%= moduleFolder %>/main/<someTemplate>.html',
-          // controller: 'SomeCtrl as ctrl'
-<%} else if (answers.template === 'sidemenu') { -%>
           abstract: true,
-          templateUrl: '<%= moduleFolder %>/main/menu.html',
-          controller: '<%= menuCtrlName %> as menu'
+<% if (!options.mainModule && subModuleName !== moduleName) { -%>
+          parent: '<%= parentModuleName %>',
+          url: '/<%= subModuleFolder %>',
+<%} else {-%>
+          url: '/<%= moduleFolder %>',
+<%} -%>
+<% if (answers.template === 'sidemenu') { -%>
+          views: {
+            'content@': {
+              templateUrl: '<%= moduleFolder %>/main/menu.html',
+              controller: '<%= menuCtrlName %>',
+              controllerAs: 'menu'
+            }
+          }
         }
       },
       {
         state: '<%= moduleName %>.list',
         config: {
+          parent: '<%= moduleName %>',
           url: '/list',
           views: {
             'pageContent': {
@@ -53,6 +65,7 @@
       {
         state: '<%= moduleName %>.listDetail',
         config: {
+          parent: '<%= moduleName %>',
           url: '/list/detail',
           views: {
             'pageContent': {
@@ -65,21 +78,27 @@
       {
         state: '<%= moduleName %>.debug',
         config: {
+          parent: '<%= moduleName %>',
           url: '/debug',
           views: {
             'pageContent': {
               templateUrl: '<%= moduleFolder %>/main/debug.html',
-              controller: '<%= debugCtrlName %> as ctrl'
+              controller: '<%= debugCtrlName %>',
+              controllerAs: 'ctrl'
             }
           }
 <%} else if (answers.template === 'tabs') { -%>
-          abstract: true,
-          templateUrl: '<%= moduleFolder %>/main/tabs.html'
+          views: {
+            'content@': {
+              templateUrl: '<%= moduleFolder %>/main/tabs.html'
+            }
+          }
         }
       },
       {
         state: '<%= moduleName %>.list',
         config: {
+          parent: '<%= moduleName %>',
           url: '/list',
           views: {
             'tab-list': {
@@ -92,6 +111,7 @@
       {
         state: '<%= moduleName %>.listDetail',
         config: {
+          parent: '<%= moduleName %>',
           url: '/list/detail',
           views: {
             'tab-list': {
@@ -104,11 +124,13 @@
       {
         state: '<%= moduleName %>.debug',
         config: {
+          parent: '<%= moduleName %>',
           url: '/debug',
           views: {
             'tab-debug': {
               templateUrl: '<%= moduleFolder %>/main/debug.html',
-              controller: '<%= debugCtrlName %> as ctrl'
+              controller: '<%= debugCtrlName %>',
+              controllerAs: 'ctrl'
             }
           }
 <% } -%>

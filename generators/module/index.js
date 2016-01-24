@@ -22,12 +22,14 @@
       this.moduleName = utils.moduleName(this.name);
       if (this.moduleName.lastIndexOf('.') !== -1) {
         this.subModuleName = this.moduleName.substr(this.moduleName.lastIndexOf('.') + 1);
+        this.parentModuleName = this.moduleName.substr(0, this.moduleName.lastIndexOf(this.subModuleName) - 1);
       } else {
         this.subModuleName = this.moduleName;
       }
       this.controllerName = utils.controllerName(this.name);
       this.fileName = utils.fileName(this.name);
       this.moduleFolder = utils.moduleFolder(this.moduleName);
+      this.subModuleFolder = utils.moduleFolder(this.subModuleName);
     },
 
     prompting: function () {
@@ -73,12 +75,6 @@
       // basic files
       var modulePath = 'app/' + this.moduleFolder;
       var moduleDefaultFeaturePath = modulePath + '/' + config.DEFAULT_FEATURE;
-      var subModuleFolder;
-      if (this.moduleFolder.lastIndexOf('/') !== -1) {
-        subModuleFolder = this.moduleFolder.substr(this.moduleFolder.lastIndexOf('/') + 1);
-      } else {
-        subModuleFolder = this.moduleFolder;
-      }
       mkdirp.sync(modulePath);
 
       // basic templated files
@@ -90,7 +86,7 @@
         this.menuCtrlName = utils.controllerName(this.subModuleName + 'Menu');
         this.debugCtrlName = utils.controllerName(this.subModuleName + 'Debug');
       }
-      this.template('_module.js', modulePath + '/' + subModuleFolder + '.js');
+      this.template('_module.js', modulePath + '/' + this.subModuleFolder + '.js');
       this.template('_module.scss', moduleDefaultFeaturePath + '/styles/' + config.DEFAULT_FEATURE + '.scss');
       // create config constant
       this.composeWith('misha:constant', {
@@ -155,6 +151,20 @@
           arguments: 'tabs ' + this.moduleName,
           options: { template: 'tabs' }
         });
+      }
+      // blank
+      if (this.answers.template === 'blank' || !this.options.mainModule) {
+        this.composeWith('misha:feature', {
+          arguments: config.DEFAULT_FEATURE + ' ' + this.moduleName
+        });
+      }
+
+      // Adds the created module into main module file (app.js)
+      var appPath = 'app/app.js';
+      if (this.fs.exists(appPath)) {
+        var fileStr = this.fs.read(appPath);
+        fileStr = fileStr.replace(/\/\/\#new\-module/g, '\'' + this.moduleName + '\',\n      \/\/#new-module');
+        this.fs.write(appPath, fileStr);
       }
     }
   });

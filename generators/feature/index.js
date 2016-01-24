@@ -20,6 +20,7 @@
       this.moduleName = utils.checkModule(this.module);
       this.moduleFolder = utils.moduleFolder(this.moduleName);
       this.featureFileName = utils.fileName(this.name);
+      this.featureControllerName = utils.controllerName(this.name); // used in the template
     },
 
     writing: function () {
@@ -30,6 +31,7 @@
       this.composeWith('misha:template', {
         arguments: this.name + ' ' + this.moduleName + ' ' + this.name
       });
+      this.template('_feature.js', featurePath + '/' + this.featureFileName + '.js');
       mkdirp.sync(featurePath + '/assets');
       mkdirp.sync(featurePath + '/styles');
     }

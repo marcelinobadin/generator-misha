@@ -24,7 +24,8 @@
           'test/karma/base/new-feature/new-feature.controller.spec.js',
           'app/base/new-feature/new-feature.html',
           'app/base/new-feature/assets',
-          'app/base/new-feature/styles'
+          'app/base/new-feature/styles',
+          'app/base/new-feature/new-feature.js'
         ]);
       });
     });
@@ -46,7 +47,8 @@
           'test/karma/my-module/sub-module/new-feature/new-feature.controller.spec.js',
           'app/my-module/sub-module/new-feature/new-feature.html',
           'app/my-module/sub-module/new-feature/assets',
-          'app/my-module/sub-module/new-feature/styles'
+          'app/my-module/sub-module/new-feature/styles',
+          'app/my-module/sub-module/new-feature/new-feature.js'
         ]);
       });
     });
