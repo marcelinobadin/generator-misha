@@ -1,0 +1,6 @@
+/*
+Variables to inject proper file location once it is on dev (on watch) and running on mobile (mob)
+*/
+$dev-path: "../";
+$mob-path: "../<%= moduleFolder %>/<%= featureFileName %>/";
+$env-path: $dev-path;

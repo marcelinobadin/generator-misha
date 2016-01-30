@@ -8,7 +8,17 @@
   <%= controllerName %>.$inject = ['logger'<% if(options.template === 'debug') { %>, '<%= serviceName %>', '<%= configName %>', '$cordovaDevice'<% } %>];
   /* @ngInject */
   function <%= controllerName %> (logger<% if(options.template === 'debug') { %>, <%= serviceName %>, <%= configName %>, $cordovaDevice<% } %>) {
-    logger.log('Hello from your Controller: <%= controllerName %> in module <%= moduleName%>:. This is your controller:', this);
+    /*
+     * 'ctrl' is a capture variable from this to be using it with 'controllerAs'.
+     * Use this variable instead of $scope to attach view model values.
+     */
+    /* jshint validthis: true */
+    var ctrl = this;
+
+    ctrl.someValue = 'someValue';
+
+    logger.log('Hello from your Controller: <%= controllerName %> in module <%= moduleName%>:. This is your controller:', ctrl);
+
 <% if (options.template === 'debug') {-%>
     // bind data from services
     this.someData = <%= serviceName %>.someData;

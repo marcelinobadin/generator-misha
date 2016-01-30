@@ -31,8 +31,8 @@
     var watchFiles = paths.jsFiles
       .concat([
         'app/index.html',
-        '.tmp/*/styles/*.css', // each module's css
-        'app/*/assets/**/*'
+        '.tmp/**/styles/*.css', // each module's css
+        'app/**/assets/**/*'
       ])
       .concat(paths.templates);
 
@@ -50,11 +50,11 @@
       }
     });
     // watch for changes in scss
-    gulp.watch('app/*/styles/**/*.scss', ['styles']);
+    gulp.watch('app/**/styles/**/*.scss', ['styles']);
     // watch for changes in environment files and new config files
     gulp.watch([
-      'app/main/constants/env-*.json',
-      'app/*/constants/*config-const.js'
+      'app/base/env-*.json',
+      'app/**/*config.constant.js'
     ], ['environment']);
   });
 

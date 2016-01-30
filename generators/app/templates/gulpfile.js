@@ -49,6 +49,9 @@
 // cordova command one of cordova's build commands?
   if (options.cordova) {
     var cmds = ['build', 'run', 'emulate', 'prepare', 'serve'];
+    if (options.cordova.indexOf('run') >= 0 || options.cordova.indexOf('emulate') >= 0) {
+      options.mobRun = true;
+    }
     for (var i = 0, cmd; ((cmd = cmds[i])); i++) {
       if (options.cordova.indexOf(cmd) >= 0) {
         options.cordovaBuild = true;

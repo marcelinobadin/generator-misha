@@ -12,6 +12,7 @@
 
   var buildDependencies = [
     options['force-build'] ? 'linting' : 'linting-throw',
+    'ionic-io-init',
     'build-app',
     'build-templates',
     'build-assets'

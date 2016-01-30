@@ -1,5 +1,5 @@
 (function () {
-'use strict';
+  'use strict';
   // gulp
   var gulp = require('gulp');
   var paths = gulp.paths;
@@ -28,13 +28,28 @@
             .pipe($.naturalSort()),
           {
             ignorePath: '../.tmp',
-            relative: true,
+            relative: true
           }))
       .pipe(gulp.dest('app'));
   });
 
+  var performChange = function (content) {
+    var mobRun = '$env-path: $mob-path;';
+    var deskRun = '$env-path: $dev-path;';
+    if (options.mobRun) {
+      return content.replace(deskRun, mobRun);
+    } else {
+      return content.replace(mobRun, deskRun);
+    }
+  };
+  gulp.task('styles-onRun', function() {
+    return gulp.src('app/**/styles/!(_)*.scss')
+      .pipe($.change(performChange))
+      .pipe(gulp.dest('app/'));
+  });
+
   // build styles to tmp
-  gulp.task('styles', ['clean'], function () {
+  gulp.task('styles', ['clean', 'styles-onRun'], function () {
 
     // compile css starting from each module's scss
     return gulp.src('app/**/styles/!(_)*.scss')
@@ -50,29 +65,29 @@
   gulp.task('wiredep', function () {
 
     return gulp.src('app/index.html')
-  <% if (answers.ionicCss) { -%>
+<% if (answers.ionicCss) { -%>
       // we're not excluding the ionic css here
       .pipe(wiredep.stream())
-  <% } else { -%>
+<% } else { -%>
       // exclude ionic scss since we're using ionic sass
       .pipe(wiredep.stream({exclude: ['bower_components/ionic/release/css']}))
-  <% } -%>
+<% } -%>
       .pipe(gulp.dest('app/'));
   });
 
   // copy bower fonts
-  <% if (answers.ionicCss) { -%>
+<% if (answers.ionicCss) { -%>
   gulp.task('bower-fonts', ['clean'], function () {
     // to do www/fonts (ionic css requires it to be in this folder)
     var DEST = 'www/fonts';
     var fontFiles = mainBowerFiles({filter: /\.(eot|otf|svg|ttf|woff|woff2)$/i});
-  <% } else { -%>
+<% } else { -%>
   gulp.task('bower-fonts', function () {
     // to app/main/assets/fonts (path can be set in app/main/styles/<module>.scss)
     var DEST = 'app/base/main/assets/fonts';
     var fontFiles = mainBowerFiles({filter: /\.(eot|otf|svg|ttf|woff|woff2)$/i})
       .concat('app/base/main/assets/fonts/**/*');
-  <% } -%>
+<% } -%>
 
     return gulp.src(fontFiles)
       .pipe($.changed(DEST))
@@ -94,13 +109,13 @@
     // remove indentation of first line
     obj = obj.replace(/^( ){2}/, '');
     // insert padding for all remaining lines
-    obj = obj.replace(/\n( ){2}/g, '\n    ');
+    obj = obj.replace(/\n( ){2}/g, '\n      ');
 
     return obj;
   };
 
   gulp.task('environment', function () {
-    return gulp.src('app/*/*config-const.js')
+    return gulp.src('app/**/*config.constant.js')
       .pipe(
         $.inject(
           gulp.src('app/base/env-' + options.env + '.json'),
@@ -126,7 +141,7 @@
   });
 
   gulp.task('build-vars', ['environment'], function () {
-    return gulp.src('app/*/*config-const.js')
+    return gulp.src('app/**/*config.constant.js')
       .pipe(
         $.inject(
           gulp.src(''),

@@ -1,7 +1,7 @@
 {
   "name": "generator-misha",
   "version": "0.2.0",
-  "description": "Create Ionic hybrid mobile applications that can be devoped in Agile teams.",
+  "description": "Create Ionic hybrid mobile applications that can be developed in Agile teams.",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "marcelinobadin/generator-misha",

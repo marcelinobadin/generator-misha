@@ -31,9 +31,10 @@
       this.composeWith('misha:template', {
         arguments: this.name + ' ' + this.moduleName + ' ' + this.name
       });
-      this.template('_feature.js', featurePath + '/' + this.featureFileName + '.js');
       mkdirp.sync(featurePath + '/assets');
       mkdirp.sync(featurePath + '/styles');
+      this.template('_feature.js', featurePath + '/' + this.featureFileName + '.js');
+      this.template('_feature.scss', featurePath + '/styles/' + this.featureFileName + '.scss');
     }
   });
 })();

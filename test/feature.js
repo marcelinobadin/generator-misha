@@ -24,9 +24,13 @@
           'test/karma/base/new-feature/new-feature.controller.spec.js',
           'app/base/new-feature/new-feature.html',
           'app/base/new-feature/assets',
-          'app/base/new-feature/styles',
+          'app/base/new-feature/styles/new-feature.scss',
           'app/base/new-feature/new-feature.js'
         ]);
+      });
+
+      it('check file contents', function () {
+        assert.fileContent('app/base/new-feature/styles/new-feature.scss', '$mob-path: \"../base/new-feature/\";');
       });
     });
 
@@ -47,9 +51,13 @@
           'test/karma/my-module/sub-module/new-feature/new-feature.controller.spec.js',
           'app/my-module/sub-module/new-feature/new-feature.html',
           'app/my-module/sub-module/new-feature/assets',
-          'app/my-module/sub-module/new-feature/styles',
+          'app/my-module/sub-module/new-feature/styles/new-feature.scss',
           'app/my-module/sub-module/new-feature/new-feature.js'
         ]);
+      });
+
+      it('check file contents', function () {
+        assert.fileContent('app/my-module/sub-module/new-feature/styles/new-feature.scss', '$mob-path: \"../my-module/sub-module/new-feature/\";');
       });
     });
   });
