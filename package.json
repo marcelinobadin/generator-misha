@@ -1,6 +1,6 @@
 {
   "name": "generator-misha",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Create Ionic hybrid mobile applications that can be developed in Agile teams.",
   "license": "MIT",
   "main": "app/index.js",
