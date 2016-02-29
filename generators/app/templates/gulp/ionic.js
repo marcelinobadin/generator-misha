@@ -3,6 +3,7 @@
 // gulp
   var gulp = require('gulp');
   var path = require('path');
+  var options = gulp.options;
 // plugins
   var $ = require('gulp-load-plugins')();
 
@@ -16,7 +17,7 @@
 
   var runIonicScript = function (command, stream) {
     // allow to overwrite command from option.cordova with parameter
-    command = typeof command === 'string' ? command : 'io init';
+    command = typeof command === 'string' ? command : options.ionic;
     // create new stream if not provided
     stream = stream || gulp.src('');
     return stream
@@ -36,8 +37,7 @@
     return content.replace(new RegExp('(' + SETTINGS_REPLACE_START + ')(.*?)(' + SETTINGS_REPLACE_END + ')', 'g'), '$1' + replacementString + '$3');
   }
 
-  gulp.task('run-ionic-script', runIonicScript);
-  gulp.task('change-ionic-files', ['run-ionic-script'], changeIonicFiles);
-  gulp.task('ionic-io-init', ['change-ionic-files']);
+  gulp.task('change-ionic-files', changeIonicFiles);
+  gulp.task('ionic', runIonicScript);
 
 })();

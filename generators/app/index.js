@@ -203,7 +203,7 @@
 
         // dependencies
         this.write('bower.json', JSON.stringify(bowerJSON, null, 2));
-        this.copy('package.json', 'package.json');
+        this.template('_package.json', 'package.json');
 
         // app files
         // add random color to navbar
@@ -221,7 +221,7 @@
         this.copy('gulp/linting.js');
         this.copy('gulp/testing.js');
         this.copy('gulp/watching.js');
-        this.copy('gulp/ionic-io-init.js');
+        this.copy('gulp/ionic.js');
         this.copy('jenkins.sh', 'jenkins.sh');
         this.copy('karma.conf.js', 'karma.conf.js');
         this.copy('protractor.conf.js', 'protractor.conf.js');
