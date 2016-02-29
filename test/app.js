@@ -52,7 +52,7 @@
           'gulp/linting.js',
           'gulp/testing.js',
           'gulp/watching.js',
-          'gulp/ionic-io-init.js',
+          'gulp/ionic.js',
           'gulpfile.js',
           'jenkins.sh',
           'karma.conf.js',

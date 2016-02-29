@@ -77,6 +77,10 @@
     else if (options.cordova) {
       return gulp.start('cordova');
     }
+    // ionic
+    else if (options.ionic) {
+      return gulp.start('ionic');
+    }
     // just watch when cordova option not present
     else {
       return gulp.start('watch');
